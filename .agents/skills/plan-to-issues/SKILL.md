@@ -15,11 +15,11 @@ in a shell this agent can run.
    One issue per unit of work.
 3. **Stop and show the table to the human.** Publish nothing until they approve it.
 4. Ask the human what every issue here must carry (fields, labels, wording), unless it is
-   already written down in this session or in the repo.
+   already written down in this session or in the repo (see "What every issue here carries").
 5. Create each issue in dependency order, so blocked-by can cite real numbers:
 
    ```sh
-   gh issue create --title "<title>" --body-file <tmp.md>
+   gh issue create --title "<title>" --body-file <tmp.md> --label "plan:<plan>"
    ```
 
 6. Record every issue URL from gh's output (not from memory) and reply with the list.
@@ -29,6 +29,28 @@ Closing one, with the closing comment from AGENTS.md:
 ```sh
 gh issue close <n> -c "<closing comment>"
 ```
+
+## What every issue here carries
+
+The human approved this shape on 2026-10-30 (plan morning-digest). Use it for every plan until
+they change it here.
+
+- Title: what the issue delivers, in a few words.
+- Label: `plan:<plan>`, the `plan:` value from the plan's frontmatter.
+- Body, in this order, the first line exactly so:
+
+  ```
+  Source: plan.md § <n>
+
+  Scope: <the plan section's scope, in its words>
+
+  Done when: <the section's Done when, word for word>
+  Blocked by: <#n and what exactly, an outside event such as the reviewer's look, or —>
+  Worker: <strongest model (logic) · cheaper model (views, tests) · main session (needs the human)>
+  ```
+
+An issue that waits on someone outside (a reviewer, a host, the human) names it under
+`Blocked by` and stays open until they have acted, not until the work was sent (AGENTS.md rule 5).
 
 ## No `gh`
 
